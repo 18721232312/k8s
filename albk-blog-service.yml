@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: albk-blog-tomcat-service
+  labels:
+    app: albk-blog-tomcat-service
+spec:
+#  type: NodePort
+  selector:
+    app: tomcat-cluster
+  ports:
+  - port: 8000
+    targetPort: 8080
+#    nodePort: 32500
