@@ -8,5 +8,5 @@ spec:
   selector:
     app: k8s-demo-app-deploy
   ports:
-  - port: 80
+  - port: 8888
     targetPort: 80
