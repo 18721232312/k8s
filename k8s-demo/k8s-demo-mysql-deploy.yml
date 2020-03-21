@@ -1,0 +1,26 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: k8s-demo-mysql-deploy
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: k8s-demo-mysql-deploy
+    spec:
+      volumes:
+      - name: k8s-demo-mysql-volume
+        hostPath:
+          path: /usr/www/data/k8s-demo/sql
+      containers:
+      - name: k8s-demo-mysql-deploy
+        image: mysql:5.7
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "root1234"
+        volumeMounts:
+        - name: k8s-demo-mysql-volume
+          mountPath: /docker-entrypoint-initdb.d

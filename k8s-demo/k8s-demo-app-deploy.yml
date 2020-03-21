@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: k8s-demo-app-deploy
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: k8s-demo-app-deploy
+    spec:
+      volumes:
+      - name : k8s-demo-app-volume
+        hostPath:
+          path: /usr/www/data/k8s-demo/dist
+      containers:
+      - name: k8s-demo-app-deploy
+        image: openjdk:8u222-jre
+        command: ["/bin/sh"]
+        args: ["-c","cd /usr/www/data/k8s-demo/dist;java -jar k8s-demo-app.jar -Dspring.config.location=./application.yml> app.logs "]
+        volumeMounts:
+        - name: k8s-demo-app-volume
+          mountPath: /usr/www/data/k8s-demo/dist
